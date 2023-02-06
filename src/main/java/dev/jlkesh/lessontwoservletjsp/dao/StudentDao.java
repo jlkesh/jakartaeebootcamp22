@@ -66,4 +66,24 @@ public class StudentDao extends DAO {
         }
         return students;
     }
+
+    public Student findById(long studentID) {
+        Connection connection = getConnection();
+        try (PreparedStatement pr = connection.prepareStatement("select * from lessontwo.student t where t.id = ?;")) {
+            pr.setLong(1, studentID);
+            ResultSet rs = pr.executeQuery();
+
+            if (rs.next())
+                return Student.builder()
+                        .id(rs.getLong("id"))
+                        .firstName(rs.getString("first_name"))
+                        .lastName(rs.getString("last_name"))
+                        .age(rs.getShort("age"))
+                        .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
+                        .build();
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
