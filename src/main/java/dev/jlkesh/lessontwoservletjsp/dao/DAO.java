@@ -1,17 +1,20 @@
 package dev.jlkesh.lessontwoservletjsp.dao;
 
+import org.postgresql.Driver;
+
 import java.sql.Connection;
+import java.sql.DriverAction;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class DAO {
+public abstract class DAO {
 
-    private ThreadLocal<Connection> connection = ThreadLocal.withInitial(
+    private final ThreadLocal<Connection> connectionThreadLocal = ThreadLocal.withInitial(
             () -> {
                 try {
+                    DriverManager.registerDriver(new Driver());
                     return DriverManager.getConnection(
-                            "jdbc:postgresql//localhost:5432/jakartaee?currentSchema=lessontwo",
+                            "jdbc:postgresql://localhost:5432/jakartaee",
                             "postgres",
                             "123"
                     );
@@ -22,6 +25,6 @@ public class DAO {
     );
 
     protected Connection getConnection() {
-        return connection.get();
+        return connectionThreadLocal.get();
     }
 }

@@ -1,6 +1,6 @@
 package dev.jlkesh.lessontwoservletjsp.servlets.student;
 
-import dev.jlkesh.lessontwoservletjsp.StudentCreateDTO;
+import dev.jlkesh.lessontwoservletjsp.dto.StudentCreateDTO;
 import dev.jlkesh.lessontwoservletjsp.dao.StudentDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,13 +10,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.java.Log;
 
+import javax.lang.model.element.ModuleElement;
 import java.io.IOException;
 
 
 @Log
 @WebServlet(name = "StudentAddServlet", value = "/students/add")
 public class StudentAddServlet extends HttpServlet {
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class StudentAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StudentDao studentDao = new StudentDao();
+        StudentDao studentDao = StudentDao.getInstance();
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         short age = Short.parseShort(req.getParameter("age"));
