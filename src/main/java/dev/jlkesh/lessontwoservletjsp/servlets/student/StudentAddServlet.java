@@ -1,7 +1,7 @@
 package dev.jlkesh.lessontwoservletjsp.servlets.student;
 
-import dev.jlkesh.lessontwoservletjsp.dto.StudentCreateDTO;
 import dev.jlkesh.lessontwoservletjsp.dao.StudentDao;
+import dev.jlkesh.lessontwoservletjsp.dto.StudentCreateDTO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.java.Log;
 
-import javax.lang.model.element.ModuleElement;
 import java.io.IOException;
 
 

@@ -9,40 +9,23 @@
 <html>
 <head>
     <title>Students List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
 <div class="row">
     <div class="col-md-10 offset-1">
         <h1 class="text-center">Student Create Page</h1>
         <form method="post" action="/students/delete/${student.getId()}">
-            <div class="mb-3">
-                <label for="firstName" class="form-label">Student First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName"
-                       value="${student.getFirstName()}">
+            <input type="hidden" name="id" value="${student.getId()}">
+            <div class="alert alert-danger">
+                <p>Are you sure delete user <i>${student.getFirstName()}</i></p>
             </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Student Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName"
-                       value="${student.getLastName()}">
-            </div>
-
-            <div class="mb-3">
-                <label for="age" class="form-label">Student Age</label>
-                <input type="number" class="form-control" id="age" name="age"
-                       value="${student.getAge()}">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Delete</button>
+            <a href="/students" class="btn btn-success">Back</a>
+            <button type="submit" class="btn btn-primary">Yes</button>
         </form>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-        crossorigin="anonymous"></script>
+<script src="/resources/js/popper.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

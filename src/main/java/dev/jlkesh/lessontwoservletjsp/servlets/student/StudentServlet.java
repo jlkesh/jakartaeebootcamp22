@@ -1,24 +1,27 @@
 package dev.jlkesh.lessontwoservletjsp.servlets.student;
 
 import dev.jlkesh.lessontwoservletjsp.dao.StudentDao;
-import dev.jlkesh.lessontwoservletjsp.domain.Student;
-import dev.jlkesh.lessontwoservletjsp.dto.StudentCreateDTO;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.Clock;
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "StudentServlet", value = "/students")
 public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StudentDao studentDao = StudentDao.getInstance();
-        request.setAttribute("current_time", ZonedDateTime.now(Clock.systemDefaultZone()));
-        request.setAttribute("students", studentDao.findAll());
+        short page = Short.parseShort(Objects.requireNonNullElse(request.getParameter("page"), "0"));
+        short size = Short.parseShort(Objects.requireNonNullElse(request.getParameter("size"), "3"));
+        request.setAttribute("students", studentDao.findAll(page, size));
+//        response.setIntHeader("Refresh", 2);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/students/students.jsp");
         dispatcher.forward(request, response);
     }

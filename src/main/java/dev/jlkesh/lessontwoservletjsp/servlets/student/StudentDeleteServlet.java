@@ -23,6 +23,8 @@ public class StudentDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        StudentDao studentDao = StudentDao.getInstance();
+        studentDao.deleteById(Long.parseLong(request.getParameter("id")));
+        response.sendRedirect("/students");
     }
 }

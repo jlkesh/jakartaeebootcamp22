@@ -47,10 +47,12 @@ public class StudentDao extends DAO {
         }
     }
 
-    public List<Student> findAll() {
+    public List<Student> findAll(short page, short size) {
         List<Student> students = new ArrayList<>();
         Connection connection = getConnection();
-        try (PreparedStatement pr = connection.prepareStatement("select * from lessontwo.student order by created_at desc ")) {
+        try (PreparedStatement pr = connection.prepareStatement("select * from lessontwo.student order by created_at desc offset ? limit ?")) {
+            pr.setShort(1, (short) (page * size));
+            pr.setShort(2, size);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
                 students.add(Student.builder()
@@ -82,6 +84,16 @@ public class StudentDao extends DAO {
                         .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
                         .build();
             return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteById(long id) {
+        Connection connection = getConnection();
+        try (PreparedStatement pr = connection.prepareStatement("delete  from lessontwo.student t where t.id = ?;")) {
+            pr.setLong(1, id);
+            pr.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
