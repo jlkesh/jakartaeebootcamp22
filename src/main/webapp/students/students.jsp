@@ -22,11 +22,12 @@
                 <li class="page-item disabled">
                     <a class="page-link">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="?page=0">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="?page=1">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="?page=2">3</a></li>
+                <c:set value="${currentPage}" var="cur"/>
+                <c:forEach begin="0" end="${pageCount}" var="i">
+                    <li class="page-item ${cur == i ? "active":""}">
+                        <a class="page-link" href="?page=${i}">${i+1}</a>
+                    </li>
+                </c:forEach>
                 <li class="page-item">
                     <a class="page-link" href="#">Next</a>
                 </li>

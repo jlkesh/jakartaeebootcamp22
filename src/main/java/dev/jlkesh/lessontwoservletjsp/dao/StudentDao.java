@@ -2,6 +2,7 @@ package dev.jlkesh.lessontwoservletjsp.dao;
 
 import dev.jlkesh.lessontwoservletjsp.dto.StudentCreateDTO;
 import dev.jlkesh.lessontwoservletjsp.domain.Student;
+import dev.jlkesh.lessontwoservletjsp.dto.StudentUpdateDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -17,6 +18,10 @@ import java.util.List;
 public class StudentDao extends DAO {
 
     private static final ThreadLocal<StudentDao> studentDaoThreadLocal = ThreadLocal.withInitial(StudentDao::new);
+    public static final String FIND_ALL_QUERY = "select * from lessontwo.student order by created_at desc offset ? limit ?";
+    public static final String UPDATE_STUDENT_QUERY = """
+            update lessontwo.student set first_name = ?, last_name = ?, age = ?  where id = ?;""";
+    public static final String TOTAL_COUNT = "select count(0) from lessontwo.student;";
 
     public static StudentDao getInstance() {
         return studentDaoThreadLocal.get();
@@ -50,7 +55,7 @@ public class StudentDao extends DAO {
     public List<Student> findAll(short page, short size) {
         List<Student> students = new ArrayList<>();
         Connection connection = getConnection();
-        try (PreparedStatement pr = connection.prepareStatement("select * from lessontwo.student order by created_at desc offset ? limit ?")) {
+        try (PreparedStatement pr = connection.prepareStatement(FIND_ALL_QUERY)) {
             pr.setShort(1, (short) (page * size));
             pr.setShort(2, size);
             ResultSet rs = pr.executeQuery();
@@ -97,5 +102,31 @@ public class StudentDao extends DAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void update(@NonNull StudentUpdateDTO dto) {
+        Connection connection = getConnection();
+        try (PreparedStatement pr = connection.prepareStatement(UPDATE_STUDENT_QUERY)) {
+            pr.setString(1, dto.firstName());
+            pr.setString(2, dto.lastName());
+            pr.setShort(3, dto.age());
+            pr.setLong(4, dto.id());
+            pr.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public long totalCount() {
+        Connection connection = getConnection();
+        try (PreparedStatement pr = connection.prepareStatement(TOTAL_COUNT)) {
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                return rs.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }
