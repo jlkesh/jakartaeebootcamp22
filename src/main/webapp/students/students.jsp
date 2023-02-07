@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <html>
 <head>
     <title>Students List</title>
@@ -16,21 +17,26 @@
 <div class="row">
     <div class="col-md-10 offset-1">
         <h1>Students List</h1>
-        <a href="/students/add" class="btn btn-success">Add</a>
+        <%--        <a href="/students/add" class="btn btn-success">Add</a>--%>
+        <button class="btn btn-success" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Add</button>
         <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                </li>
+            <ul class="pagination mt-2">
+                <c:if test="${hasPrevious}">
+                    <li class="page-item">
+                        <a class="page-link" href="?page=${previous}">Previous</a>
+                    </li>
+                </c:if>
                 <c:set value="${currentPage}" var="cur"/>
                 <c:forEach begin="0" end="${pageCount}" var="i">
                     <li class="page-item ${cur == i ? "active":""}">
                         <a class="page-link" href="?page=${i}">${i+1}</a>
                     </li>
                 </c:forEach>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
+                <c:if test="${hasNext}">
+                    <li class="page-item">
+                        <a class="page-link" href="?page=${next}">Next</a>
+                    </li>
+                </c:if>
             </ul>
         </nav>
         <table class="table table-striped">
@@ -51,7 +57,9 @@
                     <td>${student.getFirstName()}</td>
                     <td>${student.getLastName()}</td>
                     <td>${student.getAge()}</td>
-                    <td>${student.getCreatedAt()}</td>
+                    <td><fmt:formatDate type="date" value="${student.getCreatedAt()}" var="fd"/>
+                            ${fd}
+                    </td>
                     <td>
                         <a class="btn btn-warning" href="/students/update/${student.getId()}">Update</a> ||
                         <a class="btn btn-danger" href="/students/delete/${student.getId()}">Delete</a>
@@ -60,6 +68,38 @@
             </c:forEach>
             </tbody>
         </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Create Student</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/students/add">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Student First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Student Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Student Age</label>
+                        <input type="number" class="form-control" id="age" name="age">
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Save Student</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <script src="/resources/js/popper.min.js"></script>

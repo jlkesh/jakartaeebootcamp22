@@ -44,7 +44,7 @@ public class StudentDao extends DAO {
             ResultSet resultSet = pr.executeQuery();
             if (resultSet.next()) {
                 student.setId(resultSet.getLong("id"));
-                student.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+                student.setCreatedAt(resultSet.getTimestamp("created_at"));
             }
             return student;
         } catch (SQLException e) {
@@ -65,7 +65,7 @@ public class StudentDao extends DAO {
                         .firstName(rs.getString("first_name"))
                         .lastName(rs.getString("last_name"))
                         .age(rs.getShort("age"))
-                        .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
+                        .createdAt(rs.getTimestamp("created_at"))
                         .build());
             }
         } catch (SQLException e) {
@@ -86,7 +86,7 @@ public class StudentDao extends DAO {
                         .firstName(rs.getString("first_name"))
                         .lastName(rs.getString("last_name"))
                         .age(rs.getShort("age"))
-                        .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
+                        .createdAt(rs.getTimestamp("created_at"))
                         .build();
             return null;
         } catch (SQLException e) {

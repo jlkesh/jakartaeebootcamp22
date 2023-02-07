@@ -22,9 +22,14 @@ public class StudentServlet extends HttpServlet {
         short size = Short.parseShort(Objects.requireNonNullElse(request.getParameter("size"), "3"));
         long totalCount = studentDao.totalCount();
         long pageCount = totalCount / size;
+        long currentPage = page;
         request.setAttribute("students", studentDao.findAll(page, size));
         request.setAttribute("pageCount", pageCount);
-        request.setAttribute("currentPage", page);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("hasPrevious", currentPage > 0);
+        request.setAttribute("hasNext", currentPage < pageCount);
+        request.setAttribute("previous", page - 1);
+        request.setAttribute("next", page + 1);
 //        response.setIntHeader("Refresh", 2);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/students/students.jsp");
         dispatcher.forward(request, response);
