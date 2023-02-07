@@ -61,7 +61,7 @@
                             ${fd}
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="/students/update/${student.getId()}">Update</a> ||
+                        <button class="btn btn-warning" data-bs-target="#updateStudentModal" data-bs-toggle="modal" onclick="update(${student.getId()})">Update</button> ||
                         <a class="btn btn-danger" href="/students/delete/${student.getId()}">Delete</a>
                     </td>
                 </tr>
@@ -102,6 +102,37 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="updateStudentModal" aria-hidden="true" aria-labelledby="UpdateStudentModalLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="UpdateStudentModalLabel">Update Student</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/students/update/">
+                    <input type="hidden" id="u_id" name="id" />
+                    <div class="mb-3">
+                        <label for="u_firstName" class="form-label">Student First Name</label>
+                        <input type="text" class="form-control" id="u_firstName" name="firstName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="u_lastName" class="form-label">Student Last Name</label>
+                        <input type="text" class="form-control" id="u_lastName" name="lastName">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="u_age" class="form-label">Student Age</label>
+                        <input type="number" class="form-control" id="u_age" name="age">
+                    </div>
+                    <button type="submit" class="btn btn-success">Update Student</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/resources/js/main.js"></script>
 <script src="/resources/js/popper.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 </body>
