@@ -7,8 +7,27 @@
         <welcome-file>home.jsp</welcome-file>
         <welcome-file>main.jsp</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>InitParams</servlet-name>
+        <servlet-class>dev.jlkesh.lessontwoservletjsp.servlets.InitParameters</servlet-class>
+        <init-param>
+            <param-name>name</param-name>
+            <param-value>Javohir</param-value>
+        </init-param>
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>123</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitParams</servlet-name>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
 
     <listener>
-        <listener-class>dev.jlkesh.lessontwoservletjsp.StartupShutdownListener</listener-class>
+        <listener-class>dev.jlkesh.lessontwoservletjsp.servlets.SessionListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>dev.jlkesh.lessontwoservletjsp.servlets.AttributeListener</listener-class>
     </listener>
 </web-app>
