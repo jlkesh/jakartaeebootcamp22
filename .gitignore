@@ -164,3 +164,5 @@ fabric.properties
 /mvnw.cmd
 /.idea/misc.xml
 /.mvn/wrapper/maven-wrapper.properties
+/.idea/artifacts/lesson_two_servlet_jsp_war_exploded.xml
+/.idea/vcs.xml

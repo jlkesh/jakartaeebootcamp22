@@ -6,6 +6,6 @@ function update(student_id) {
             document.getElementById("u_firstName").value = json.firstName;
             document.getElementById("u_lastName").value = json.lastName;
             document.getElementById("u_age").value = json.age;
-        })
+        });
 
 }
