@@ -135,23 +135,23 @@
 
 <c:set var="xmltext">
     <books>
-        <book>
+        <bookBook>
             <name>Spring Boot In Action</name>
             <author>LXC</author>
             <price>20</price>
-        </book>
+        </bookBook>
 
-        <book>
+        <bookBook>
             <name>Reactive Spring</name>
             <author>Josh Long</author>
             <price>50</price>
-        </book>
+        </bookBook>
     </books>
 </c:set>
 <x:parse xml="${xmltext}" var="output"/>
 
 <ul class="list">
-    <x:forEach select="$output/books/book/name" var="item">
+    <x:forEach select="$output/books/bookBook/name" var="item">
         <li>Book Name:
             <x:out select="$item"/>
         </li>

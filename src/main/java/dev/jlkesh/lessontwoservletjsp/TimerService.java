@@ -1,10 +1,7 @@
 package dev.jlkesh.lessontwoservletjsp;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.postgresql.ds.PGPoolingDataSource;
 
-import java.sql.Connection;
 import java.util.Date;
 
 public class TimerService {
