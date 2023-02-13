@@ -4,11 +4,7 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
     <welcome-file-list>
-        <welcome-file>home.jsp</welcome-file>
-        <welcome-file>main.jsp</welcome-file>
+        <welcome-file>/views/home.jsp</welcome-file>
+        <welcome-file>/views/main.jsp</welcome-file>
     </welcome-file-list>
-
-    <listener>
-        <listener-class>dev.jlkesh.lessontwoservletjsp.StartupShutdownListener</listener-class>
-    </listener>
 </web-app>
