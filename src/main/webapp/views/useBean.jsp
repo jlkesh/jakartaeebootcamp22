@@ -13,7 +13,8 @@
 <body>
 <jsp:useBean id="timer" scope="application" class="dev.jlkesh.lessontwoservletjsp.TimerService"/>
 
-<%= timer.currentTime() %>
+<h3><%= timer.currentTime(null) %></h3>
+<h2>${timer.currentTime('Hello Time')}</h2>
 
 </body>
 </html>
