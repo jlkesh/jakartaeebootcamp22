@@ -55,8 +55,8 @@ public class Book {
 
     private String title;
 
-    @CreationTimestamp
+/*    @CreationTimestamp
     @Column(columnDefinition = "timestamp default current_timestamp")
-    /*@OrderBy(value = "desc")*/
-    private LocalDateTime createdAt;
+    *//*@OrderBy(value = "desc")*//*
+    private LocalDateTime createdAt;*/
 }

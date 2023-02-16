@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import dev.jlkesh.lessontwoservletjsp.entity.Book;
+import dev.jlkesh.lessontwoservletjsp.relations.one2many.Book;
 import jakarta.persistence.Persistence;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,7 +31,7 @@ public class BookServletServlet extends HttpServlet {
                 .title(request.getParameter("title"))
                 .build();
         em.persist(book);*/
-        var books = em.createNamedQuery("get_all_order_createdat", Book.class).getResultList();
+        var books = em.createNativeQuery("select * from new_book;", Book.class).getResultList();
         System.out.println(books);
         em.getTransaction().commit();
         var jsonDATA = gson.toJson(books);
