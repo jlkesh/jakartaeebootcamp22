@@ -23,9 +23,9 @@ public abstract class BaseDAO<T extends BaseEntity, ID extends Serializable> {
     }
 
     public T save(T t) {
-        em.getTransaction().begin();
+        begin();
         em.persist(t);
-        em.getTransaction().commit();
+        commit();
         return t;
     }
 
@@ -47,5 +47,13 @@ public abstract class BaseDAO<T extends BaseEntity, ID extends Serializable> {
         return em.createQuery("delete from " + persistenceClass.getSimpleName() + " t where t.id = :id")
                 .setParameter("id", id)
                 .executeUpdate() == 0;
+    }
+
+    protected void begin() {
+        em.getTransaction().begin();
+    }
+
+    protected void commit() {
+        em.getTransaction().commit();
     }
 }
