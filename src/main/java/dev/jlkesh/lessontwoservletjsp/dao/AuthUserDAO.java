@@ -1,4 +1,6 @@
 package dev.jlkesh.lessontwoservletjsp.dao;
 
-public class AuthUserDAO {
+import dev.jlkesh.lessontwoservletjsp.entity.AuthUser;
+
+public class AuthUserDAO extends BaseDAO<AuthUser, String> {
 }
